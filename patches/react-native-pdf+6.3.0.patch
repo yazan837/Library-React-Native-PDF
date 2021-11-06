@@ -1,0 +1,53 @@
+diff --git a/node_modules/react-native-pdf/assets/bookbackground.jpg b/node_modules/react-native-pdf/assets/bookbackground.jpg
+new file mode 100644
+index 0000000..2515ca3
+Binary files /dev/null and b/node_modules/react-native-pdf/assets/bookbackground.jpg differ
+diff --git a/node_modules/react-native-pdf/index.js b/node_modules/react-native-pdf/index.js
+index 4384443..9f33071 100644
+--- a/node_modules/react-native-pdf/index.js
++++ b/node_modules/react-native-pdf/index.js
+@@ -15,7 +15,8 @@ import {
+     Platform,
+     ViewPropTypes,
+     StyleSheet,
+-    Image
++    Image,
++    ImageBackground
+ } from 'react-native';
+ 
+ import { ProgressBar } from '@react-native-community/progress-bar-android'
+@@ -425,26 +426,29 @@ export default class Pdf extends Component {
+                                             {...this.props.activityIndicatorProps}
+                                         />}
+                             </View>):(
+-                                Platform.OS === "android" || Platform.OS === "windows"?(
++                                Platform.OS === "android" || Platform.OS === "windows" ? (
++                                      <ImageBackground
++          source={require('./assets/bookbackground.jpg')}
++          style={{width: '100%', height: '100%'}}>
+                                         <PdfCustom
+                                             ref={component => (this._root = component)}
+                                             {...this.props}
+-                                            style={[{flex:1,backgroundColor: '#EEE'}, this.props.style]}
++                                            style={[{flex:1,backgroundColor: require('./assets/bookbackground.jpg')}, this.props.style]}
+                                             path={this.state.path}
+                                             onChange={this._onChange}
+-                                        />
++                                        /></ImageBackground>
+                                     ):(
+                                         this.props.usePDFKit && this.state.isSupportPDFKit === 1?(
+                                                 <PdfCustom
+                                                     ref={component => (this._root = component)}
+                                                     {...this.props}
+-                                                    style={[{backgroundColor: '#EEE',overflow: 'hidden'}, this.props.style]}
++                                                    style={[{backgroundColor:  require('./assets/bookbackground.jpg'),overflow: 'hidden'}, this.props.style]}
+                                                     path={this.state.path}
+                                                     onChange={this._onChange}
+                                                 />
+                                             ):(<PdfView
+                                                 {...this.props}
+-                                                style={[{backgroundColor: '#EEE',overflow: 'hidden'}, this.props.style]}
++                                                style={[{backgroundColor:  require('./assets/bookbackground.jpg'),overflow: 'hidden'}, this.props.style]}
+                                                 path={this.state.path}
+                                                 onLoadComplete={this.props.onLoadComplete}
+                                                 onPageChanged={this.props.onPageChanged}
